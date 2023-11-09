@@ -1,0 +1,10 @@
+{
+    "login_data": {
+        "url": "https://demo.applitools.com/",
+        "redirected_page_url": "https://demo.applitools.com/app.html",
+        "user_data": {
+            "username": "testuser",
+            "password": "password123"
+        }
+    }
+}
