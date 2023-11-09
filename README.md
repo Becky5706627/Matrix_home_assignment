@@ -24,12 +24,12 @@ This project uses Python with the PyTest framework for automated testing. Seleni
 git clone [repository-link]
 ```
 
-Navigate to the cloned directory:
+2. Navigate to the cloned directory:
 ```sh
 cd [local-repository]
 ```
 
-Install the required Python packages:
+3. Install the required Python packages:
 ```sh
 pip install -r requirements.txt
 ```
