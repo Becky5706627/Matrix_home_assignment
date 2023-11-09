@@ -10,17 +10,19 @@ from front.utils.assertions import AssertionHandler
 @pytest.mark.usefixtures("setup")
 class TestTransaction:
 
-    @pytest.fixture(autouse=True)
-    def class_setup(self, setup):
-        self.driver = setup
-        self.transactions_page = TransactionsPage(self.driver)
-        self.login_page = LoginPage(self.driver)
+    @pytest.fixture(scope="class", autouse=True)
+    def transactions_page_setup(self, setup):
+        driver = setup
+        login_page = LoginPage(driver)
         login_data = LoginData.valid_login()[0]
-        self.login_page.go_to_login_url(LoginData.get_page_url())
-        self.login_page.login(login_data["username"], login_data["password"])
+        login_page.go_to_login_url(LoginData.get_page_url())
+        login_page.login(login_data["username"], login_data["password"])
+        transactions_page = TransactionsPage(driver)
+        return transactions_page
 
     @pytest.mark.parametrize('transactions_data', TransactionsData.successful_transaction_count())
-    def test_successful_transaction_count(self, transactions_data):
-        successful_transactions = self.transactions_page.count_successful_transactions()
+    def test_successful_transaction_count(self, transactions_page_setup, transactions_data):
+        successful_transactions = transactions_page_setup.count_successful_transactions()
         AssertionHandler.assert_equal(successful_transactions,
                                       transactions_data['transaction_count'])
+
